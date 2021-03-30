@@ -14,7 +14,6 @@ server.listen(PORT, ()=>console.log(`server is running ${PORT}`))
 
 io.on("connection", (socket)=>{
     socket.on("chatting",(data)=>{
-        console.log(data);
-        io.emit("chatting", `Mucho gusto ${data}`)
+        io.emit("chatting", data)
     })//("채팅아이디","내용 데이터!")
 });
