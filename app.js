@@ -5,6 +5,8 @@ const app = express();
 const path = require("path");
 const server = http.createServer(app);
 const socketIO = require("socket.io");
+const moment = require("moment");
+
 const io = socketIO(server);
 
 app.use(express.static(path.join(__dirname,"src")))
@@ -14,6 +16,11 @@ server.listen(PORT, ()=>console.log(`server is running ${PORT}`))
 
 io.on("connection", (socket)=>{
     socket.on("chatting",(data)=>{
-        io.emit("chatting", data)
+        const {name, msg} = data;
+        io.emit("chatting", {
+            name,
+            msg,
+            time: moment(new Date()).format("HH:mm A")
+        })
     })//("채팅아이디","내용 데이터!")
 });
