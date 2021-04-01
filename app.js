@@ -20,7 +20,7 @@ io.on("connection", (socket)=>{
         io.emit("chatting", {
             name,
             msg,
-            time: moment(new Date()).format("HH:mm A")
+            time: moment(new Date()).format("A HH:mm")
         })
     })//("채팅아이디","내용 데이터!")
 });

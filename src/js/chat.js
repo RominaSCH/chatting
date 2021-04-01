@@ -10,6 +10,7 @@ const displayContainder = document.querySelector(".display-container");
 chatInput.addEventListener("keypress",(event)=>{
     if(event.keyCode === 13){
         send();
+        
     }
 })
 sendButton.addEventListener("click", send);
@@ -20,6 +21,7 @@ function send(){
         msg: chatInput.value
     }//emit 보낸다! on 받는다!
     socket.emit("chatting", param);
+    chatInput.value = "";
 }
 
 socket.on("chatting", (data)=>{
@@ -36,12 +38,16 @@ function LiModel(name, msg, time){
     this.makeLi = ()=>{
         const li = document.createElement("li");
         li.classList.add(nickname.value === this.name ? "sent" : "received");
-        const dom = `<span class="profile">
-        <span class="user">${name}</span>
+        const dom = `<div class="wrapper-user-info">
         <img class="image" src="https://placeimg.com/50/50/any" alt="any"/>
-        </span>
-        <span class="message">${msg}</span>
-        <span class="time">${time}</span>`;
+        <span class="user">${name}</span>
+    </div>
+    <div class="message-row">
+        <div class="message__info">
+          <span class="message received">${msg}</span>
+          <span class="time">${time}</span>
+        </div>
+    </div>`;
         li.innerHTML = dom;
         chatList.appendChild(li);
     }
